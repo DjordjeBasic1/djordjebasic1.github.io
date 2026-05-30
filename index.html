@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Djordje Basic — Clinical Psychology Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f6f1e7;
+    --paper-2:#efe8da;
+    --ink:#1f1a15;
+    --ink-soft:#5c5347;
+    --ink-faint:#8a8073;
+    --wine:#6f1a2e;
+    --wine-deep:#4a0f1e;
+    --line:#d8cfbe;
+    --max:1100px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Newsreader",Georgia,serif;
+    font-weight:400;
+    font-size:19px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    background-image:radial-gradient(var(--line) 0.5px,transparent 0.5px);
+    background-size:22px 22px;
+    background-attachment:fixed;
+  }
+
+  ::selection{background:var(--wine);color:var(--paper)}
+
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 32px}
+
+  /* mono labels */
+  .label{
+    font-family:"Spline Sans Mono",monospace;
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:var(--wine);
+  }
+
+  /* ---------- top bar ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:blur(8px);
+    background:rgba(246,241,231,0.82);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px}
+  nav .mark{
+    font-family:"Fraunces",serif;font-weight:600;font-size:20px;letter-spacing:-0.01em;
+  }
+  nav .mark span{color:var(--wine)}
+  nav ul{display:flex;gap:28px;list-style:none}
+  nav a{
+    font-family:"Spline Sans Mono",monospace;font-size:12px;letter-spacing:0.12em;
+    text-transform:uppercase;color:var(--ink-soft);text-decoration:none;
+    transition:color .2s;
+  }
+  nav a:hover{color:var(--wine)}
+  @media(max-width:680px){nav ul{display:none}}
+
+  /* ---------- hero ---------- */
+  header.hero{padding:96px 0 72px}
+  .hero-grid{display:grid;grid-template-columns:1fr 220px;gap:56px;align-items:start}
+  @media(max-width:760px){.hero-grid{grid-template-columns:1fr;gap:36px}}
+
+  .eyebrow{margin-bottom:26px}
+  h1{
+    font-family:"Fraunces",serif;
+    font-weight:500;
+    font-size:clamp(48px,7vw,82px);
+    line-height:0.98;
+    letter-spacing:-0.025em;
+    margin-bottom:28px;
+  }
+  h1 em{font-style:italic;color:var(--wine)}
+  .lede{
+    font-size:23px;line-height:1.5;color:var(--ink-soft);max-width:46ch;font-weight:300;
+  }
+  .lede strong{color:var(--ink);font-weight:500}
+
+  .portrait{
+    width:220px;height:268px;border:1px solid var(--line);
+    background:var(--paper-2);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+  }
+  .portrait img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(0);transition:filter .4s}
+  .portrait:hover img{filter:saturate(0.15) contrast(1.02)}
+  @media(max-width:760px){.portrait{width:160px;height:196px}}
+
+  .contacts{margin-top:24px;display:flex;flex-direction:column;gap:9px}
+  .contacts a{
+    font-family:"Spline Sans Mono",monospace;font-size:12.5px;letter-spacing:0.04em;
+    color:var(--ink-soft);text-decoration:none;display:flex;gap:10px;align-items:center;
+    transition:color .2s,transform .2s;
+  }
+  .contacts a:hover{color:var(--wine);transform:translateX(3px)}
+  .contacts a span{color:var(--wine);width:14px}
+
+  /* ---------- section frame ---------- */
+  section{padding:64px 0;border-top:1px solid var(--line)}
+  .sec-head{display:flex;gap:16px;align-items:baseline;margin-bottom:40px}
+  .sec-head .num{font-family:"Spline Sans Mono",monospace;font-size:12px;color:var(--ink-faint)}
+  .sec-head h2{
+    font-family:"Fraunces",serif;font-weight:500;font-size:clamp(28px,3.5vw,38px);
+    letter-spacing:-0.02em;
+  }
+
+  /* ---------- about ---------- */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px}
+  @media(max-width:760px){.about-grid{grid-template-columns:1fr;gap:28px}}
+  .about-grid p{margin-bottom:18px;color:var(--ink-soft)}
+  .about-grid p strong{color:var(--ink);font-weight:500}
+  .focus-list{list-style:none;border-left:2px solid var(--wine);padding-left:22px}
+  .focus-list li{margin-bottom:16px;font-size:18px}
+  .focus-list li .t{display:block;color:var(--ink);font-weight:500}
+  .focus-list li .d{display:block;color:var(--ink-faint);font-size:15px;font-family:"Spline Sans Mono",monospace;letter-spacing:0.03em;margin-top:2px}
+
+  /* ---------- projects ---------- */
+  .proj{
+    display:grid;grid-template-columns:64px 1fr auto;gap:24px;align-items:baseline;
+    padding:26px 0;border-bottom:1px solid var(--line);
+    transition:background .25s;
+  }
+  .proj:hover{background:var(--paper-2)}
+  .proj:hover .proj-title{color:var(--wine)}
+  .proj-idx{font-family:"Spline Sans Mono",monospace;font-size:13px;color:var(--ink-faint)}
+  .proj-title{font-family:"Fraunces",serif;font-size:24px;font-weight:500;letter-spacing:-0.01em;line-height:1.2;transition:color .2s}
+  .proj-desc{color:var(--ink-soft);font-size:17px;margin-top:7px;max-width:60ch}
+  .proj-meta{margin-top:9px;display:flex;gap:8px;flex-wrap:wrap}
+  .tag{
+    font-family:"Spline Sans Mono",monospace;font-size:10.5px;letter-spacing:0.08em;
+    text-transform:uppercase;color:var(--ink-soft);
+    border:1px solid var(--line);border-radius:2px;padding:3px 8px;
+  }
+  .tag.lab{color:var(--wine);border-color:var(--wine)}
+  .proj-side{font-family:"Spline Sans Mono",monospace;font-size:12px;color:var(--ink-faint);text-align:right;white-space:nowrap}
+  @media(max-width:680px){
+    .proj{grid-template-columns:40px 1fr;gap:14px}
+    .proj-side{grid-column:2;text-align:left;margin-top:6px}
+  }
+
+  /* ---------- publications ---------- */
+  .pub{padding:22px 0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr auto;gap:20px;align-items:baseline}
+  .pub-main{max-width:72ch}
+  .pub-title{font-family:"Fraunces",serif;font-size:20px;font-weight:500;line-height:1.25;letter-spacing:-0.01em}
+  .pub-auth{color:var(--ink-faint);font-size:15px;font-family:"Spline Sans Mono",monospace;margin-top:6px;letter-spacing:0.02em}
+  .pub-venue{color:var(--ink-soft);font-style:italic;margin-top:4px;font-size:16px}
+  .pub-status{
+    font-family:"Spline Sans Mono",monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;
+    color:var(--wine);border:1px solid var(--wine);border-radius:2px;padding:3px 8px;white-space:nowrap;
+  }
+  @media(max-width:680px){.pub{grid-template-columns:1fr}}
+  .pub-status.pub-pub{color:var(--ink-soft);border-color:var(--line)}
+  .lead{font-family:"Spline Sans Mono",monospace;font-style:normal;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--wine)}
+  .doi{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--line);font-style:normal;font-size:14px}
+  .doi:hover{border-color:var(--wine)}
+  .pub-note{margin-top:24px;color:var(--ink-faint);font-size:15px;font-style:italic}
+
+  /* ---------- footer ---------- */
+  footer{border-top:1px solid var(--line);padding:56px 0 72px;margin-top:24px}
+  .foot-grid{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px}
+  .foot-grid h3{font-family:"Fraunces",serif;font-weight:500;font-size:30px;letter-spacing:-0.02em}
+  .foot-grid h3 em{font-style:italic;color:var(--wine)}
+  .foot-links{display:flex;gap:22px;flex-wrap:wrap}
+  .foot-links a{font-family:"Spline Sans Mono",monospace;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;transition:color .2s}
+  .foot-links a:hover{color:var(--wine)}
+  .colophon{margin-top:40px;font-family:"Spline Sans Mono",monospace;font-size:11px;letter-spacing:0.06em;color:var(--ink-faint)}
+
+  /* ---------- entrance animation ---------- */
+  .reveal{opacity:0;transform:translateY(18px);animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards}
+  @keyframes rise{to{opacity:1;transform:none}}
+  .d1{animation-delay:.05s}.d2{animation-delay:.15s}.d3{animation-delay:.25s}
+  .d4{animation-delay:.35s}.d5{animation-delay:.45s}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="mark">Basic<span>.</span></div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="label eyebrow reveal d1">Clinical Psychology · PhD Researcher</div>
+        <h1 class="reveal d2">Djordje<br><em>Basic</em></h1>
+        <p class="lede reveal d3">I build better ways to <strong>measure</strong> and <strong>treat</strong> psychosis — working at the intersection of psychometrics, evidence synthesis, and early intervention across <strong>VU Amsterdam</strong> and <strong>TU Munich</strong>.</p>
+      </div>
+      <div class="reveal d4">
+        <div class="portrait">
+          <!-- Replace src below and remove style="display:none" via the img rule, or just set a real src -->
+          <img src="website_photo.jpg" alt="Djordje Basic">
+        </div>
+        <div class="contacts">
+          <a href="mailto:d.basic@vu.nl"><span>✉</span> d.basic@vu.nl</a>
+          <a href="mailto:djordje.basic@tum.de"><span>✉</span> djordje.basic@tum.de</a>
+          <a href="https://scholar.google.com/citations?user=O0jjrBMAAAAJ&amp;hl=en" target="_blank" rel="noopener"><span>◎</span> Google Scholar</a>
+          <a href="https://orcid.org/0009-0002-0246-029X" target="_blank" rel="noopener"><span>◆</span> ORCID</a>
+          <a href="https://www.linkedin.com/in/djordje-basic-498b6217b" target="_blank" rel="noopener"><span>✦</span> LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">01</span><h2>About</h2></div>
+    <div class="about-grid">
+      <div>
+        <p>I am a first-year clinical psychology PhD researcher jointly affiliated with <strong>Vrije Universiteit Amsterdam</strong> and the <strong>Technical University of Munich</strong>, supervised by <strong>Pim Cuijpers</strong> and <strong>Stefan Leucht</strong>.</p>
+        <p>My work asks two linked questions: <strong>how do we measure schizophrenia well</strong>, and <strong>what actually works</strong> for people with — or at risk of — psychosis. The first leads me into psychometrics and scale development; the second into large-scale meta-analysis and network meta-analysis of psychological and early interventions.</p>
+        <p>Much of this is collaborative and infrastructural: maintaining living evidence databases, coordinating an international expert consortium, and mentoring students who contribute to the underlying data.</p>
+      </div>
+      <div>
+        <div class="label" style="margin-bottom:18px">Focus areas</div>
+        <ul class="focus-list">
+          <li><span class="t">Psychometrics &amp; measurement</span><span class="d">clinician-rated scale development</span></li>
+          <li><span class="t">Evidence synthesis</span><span class="d">meta-analysis · network meta-analysis</span></li>
+          <li><span class="t">Psychosis &amp; the prodrome</span><span class="d">early intervention · prediction</span></li>
+          <li><span class="t">Living evidence databases</span><span class="d">open, continuously updated</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">02</span><h2>Research projects</h2></div>
+
+    <div class="proj">
+      <div class="proj-idx">P—01</div>
+      <div>
+        <div class="proj-title">SCALE-S — a new clinician-rated schizophrenia assessment scale</div>
+        <p class="proj-desc">Leading the development of a next-generation outcome measure for schizophrenia, guided by an international consortium of 80+ experts in psychosis, psychometrics, and patient involvement. Currently in the item-selection phase.</p>
+        <div class="proj-meta"><span class="tag lab">TU Munich</span><span class="tag">Scale development</span><span class="tag">COSMIN</span></div>
+      </div>
+      <div class="proj-side">w/ S. Leucht<br>ongoing</div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-idx">P—02</div>
+      <div>
+        <div class="proj-title">Interventions for the psychosis prodrome — a meta-analysis</div>
+        <p class="proj-desc">A preregistered meta-analysis of interventions for prodromal (clinical high-risk) psychosis, synthesising evidence across 48 randomised controlled trials.</p>
+        <div class="proj-meta"><span class="tag lab">TU Munich</span><span class="tag">Meta-analysis</span><span class="tag">PROSPERO</span></div>
+      </div>
+      <div class="proj-side">48 RCTs<br>in progress</div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-idx">P—03</div>
+      <div>
+        <div class="proj-title">Network meta-analysis of psychological interventions for psychosis</div>
+        <p class="proj-desc">A living network meta-analysis built on a continuously updated database of 180+ RCTs, mapping the comparative effects of psychological treatments for psychosis.</p>
+        <div class="proj-meta"><span class="tag lab">VU Amsterdam</span><span class="tag">Network meta-analysis</span><span class="tag">Metapsy · living DB</span></div>
+      </div>
+      <div class="proj-side">w/ P. Cuijpers<br>180+ RCTs</div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-idx">P—04</div>
+      <div>
+        <div class="proj-title">Psychological interventions for psychosis in low- and middle-income countries</div>
+        <p class="proj-desc">A meta-analysis examining the reach and effectiveness of psychological treatments for psychosis in LMIC settings.</p>
+        <div class="proj-meta"><span class="tag lab">VU Amsterdam</span><span class="tag">Meta-analysis</span><span class="tag">Global mental health</span></div>
+      </div>
+      <div class="proj-side">in preparation</div>
+    </div>
+
+    <div class="proj">
+      <div class="proj-idx">P—05</div>
+      <div>
+        <div class="proj-title">Predictive utility of the PQ-16 in an autistic cohort</div>
+        <p class="proj-desc">Testing whether the Prodromal Questionnaire (PQ-16) predicts outcomes in a cohort of autistic individuals — bridging the psychosis-screening and autism literatures.</p>
+        <div class="proj-meta"><span class="tag">Prediction</span><span class="tag">Screening</span><span class="tag">Autism × psychosis</span></div>
+      </div>
+      <div class="proj-side">under revision</div>
+    </div>
+
+  </div>
+</section>
+
+<section id="publications">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">03</span><h2>Publications</h2></div>
+
+    <div class="pub">
+      <div class="pub-main">
+        <div class="pub-title">Predictive utility of the PQ-16 prodromal questionnaire in a cohort of autistic individuals</div>
+        <div class="pub-auth"><strong style="color:var(--wine)">Basic D</strong>, et al.</div>
+        <div class="pub-venue">Schizophrenia Bulletin &nbsp;<span class="lead">· first author</span></div>
+      </div>
+      <div class="pub-status">In revision</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-main">
+        <div class="pub-title">Trusting in times of the COVID-19 crisis: workplace and government trust and depressive symptoms among healthcare workers</div>
+        <div class="pub-auth"><strong style="color:var(--wine)">Basic D</strong>, Czepiel D, Hoek HW, Martínez AM, McCormack C, et al.</div>
+        <div class="pub-venue">Cambridge Prisms: Global Mental Health, 2025; 12: e130. &nbsp;<a href="https://doi.org/10.1017/gmh.2025.10067" target="_blank" rel="noopener" class="doi">doi:10.1017/gmh.2025.10067</a> &nbsp;<span class="lead">· first author</span></div>
+      </div>
+      <div class="pub-status pub-pub">Published</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-main">
+        <div class="pub-title">Cognitive behaviour therapy for mental disorders in adults: a unified series of meta-analyses</div>
+        <div class="pub-auth">Cuijpers P, Harrer M, Miguel C, Ciharova M, Papola D, <strong style="color:var(--wine)">Basic D</strong>, et al.</div>
+        <div class="pub-venue">JAMA Psychiatry, 2025; 82(6): 563–571. &nbsp;<a href="https://doi.org/10.1001/jamapsychiatry.2025.0482" target="_blank" rel="noopener" class="doi">doi:10.1001/jamapsychiatry.2025.0482</a></div>
+      </div>
+      <div class="pub-status pub-pub">Published</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-main">
+        <div class="pub-title">Effectiveness of psychotherapy: synthesis of a "meta-analytic research domain" across world regions and 12 mental health problems</div>
+        <div class="pub-auth">Harrer M, Miguel C, van Ballegooijen W, Ciharova M, Plessen CY, … <strong style="color:var(--wine)">Basic D</strong>, et al.</div>
+        <div class="pub-venue">Psychological Bulletin, 2025; 151(5): 600–667. &nbsp;<a href="https://doi.org/10.1037/bul0000465" target="_blank" rel="noopener" class="doi">doi:10.1037/bul0000465</a></div>
+      </div>
+      <div class="pub-status pub-pub">Published</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-main">
+        <div class="pub-title">Automating the data extraction process for systematic reviews using GPT-4o and o3</div>
+        <div class="pub-auth">Kataoka Y, Takayama T, Yoshimura K, So R, Tsujimoto Y, … <strong style="color:var(--wine)">Basic D</strong>, et al.</div>
+        <div class="pub-venue">Research Synthesis Methods, 2025; 1–21. &nbsp;<a href="https://doi.org/10.1017/rsm.2025.10030" target="_blank" rel="noopener" class="doi">doi:10.1017/rsm.2025.10030</a></div>
+      </div>
+      <div class="pub-status pub-pub">Published</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-main">
+        <div class="pub-title">Implausible effects of psychological interventions: meta-epidemiological study and development of a simple flagging tool</div>
+        <div class="pub-auth">Harrer M, Miguel C, Hussey I, Cristea IA, van Ballegooijen W, <strong style="color:var(--wine)">Basic D</strong>, et al.</div>
+        <div class="pub-venue">medRxiv, 2025. &nbsp;<a href="https://doi.org/10.1101/2025.11.12.25340062" target="_blank" rel="noopener" class="doi">doi:10.1101/2025.11.12.25340062</a></div>
+      </div>
+      <div class="pub-status pub-pub">Preprint</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-main">
+        <div class="pub-title">Development and evaluation of prompts for a large language model to screen titles and abstracts in a living systematic review</div>
+        <div class="pub-auth">Homiar A, Thomas J, Ostinelli EG, Cuijpers P, Harrer M, Leucht S, … <strong style="color:var(--wine)">Basic D</strong>, et al.</div>
+        <div class="pub-venue">BMJ Mental Health, 2025; 28(1): e301762. &nbsp;<a href="https://doi.org/10.1136/bmjment-2025-301762" target="_blank" rel="noopener" class="doi">doi:10.1136/bmjment-2025-301762</a></div>
+      </div>
+      <div class="pub-status pub-pub">Published</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-main">
+        <div class="pub-title">Absolute and relative outcomes of psychotherapies for eight mental disorders: a systematic review and meta-analysis</div>
+        <div class="pub-auth">Cuijpers P, Miguel C, Ciharova M, Harrer M, <strong style="color:var(--wine)">Basic D</strong>, Cristea IA, et al.</div>
+        <div class="pub-venue">World Psychiatry, 2024; 23(2): 267–275. &nbsp;<a href="https://doi.org/10.1002/wps.21203" target="_blank" rel="noopener" class="doi">doi:10.1002/wps.21203</a></div>
+      </div>
+      <div class="pub-status pub-pub">Published</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-main">
+        <div class="pub-title">Inequality on the frontline: a multi-country study on gender differences in mental health among healthcare workers during the COVID-19 pandemic</div>
+        <div class="pub-auth">Czepiel D, McCormack C, da Silva ATC, Seblova D, Moro MF, … <strong style="color:var(--wine)">Basic D</strong>, et al.</div>
+        <div class="pub-venue">Cambridge Prisms: Global Mental Health, 2024; 11: e34. &nbsp;<a href="https://doi.org/10.1017/gmh.2024.18" target="_blank" rel="noopener" class="doi">doi:10.1017/gmh.2024.18</a></div>
+      </div>
+      <div class="pub-status pub-pub">Published</div>
+    </div>
+
+    <div class="pub">
+      <div class="pub-main">
+        <div class="pub-title">Further development of the Short Psychopathy Rating Scale</div>
+        <div class="pub-auth">Međedović J, Romić E, Batinić N, Filipović O, <strong style="color:var(--wine)">Basic D</strong>, et al.</div>
+        <div class="pub-venue">Zbornik Instituta za kriminološka i sociološka istraživanja, 2019; 38(1): 23–38. &nbsp;<a href="https://www.iksi.ac.rs/zbornik_arhiva/zbornik_iksi_1_2019/zbornik_iksi_1_2019_janko_medjedovic.pdf" target="_blank" rel="noopener" class="doi">PDF</a></div>
+      </div>
+      <div class="pub-status pub-pub">Published</div>
+    </div>
+
+    <p class="pub-note">Author names normalised to the English spelling (Basic D). Links resolve to each paper via DOI.</p>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-grid">
+      <h3>Let's <em>talk.</em></h3>
+      <div class="foot-links">
+        <a href="mailto:d.basic@vu.nl">Email · VU</a>
+        <a href="mailto:djordje.basic@tum.de">Email · TUM</a>
+        <a href="https://scholar.google.com/citations?user=O0jjrBMAAAAJ&amp;hl=en" target="_blank" rel="noopener">Scholar</a>
+        <a href="https://orcid.org/0009-0002-0246-029X" target="_blank" rel="noopener">ORCID</a>
+        <a href="https://www.linkedin.com/in/djordje-basic-498b6217b" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    <div class="colophon">Basic by name. · © 2026 Djordje Basic · VU Amsterdam × TU Munich</div>
+  </div>
+</footer>
+
+</body>
+</html>
