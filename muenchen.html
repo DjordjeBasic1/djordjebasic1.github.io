@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Die Coucarachas · München</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3EEE3; --ink:#221C1A; --burg:#6E1B2E; --burg-deep:#4C1120;
+    --gold:#A9772A; --isar:#2C6560; --muted:#8B7F73; --line:#DBD1C0;
+    --card:#FBF7EF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:'Newsreader',Georgia,serif; font-size:17px; line-height:1.5;
+    padding-bottom:56px;
+  }
+  .wrap{max-width:640px; margin:0 auto; padding:0 18px}
+
+  /* ---------- MASTHEAD ---------- */
+  header{padding:34px 0 18px; border-bottom:2px solid var(--ink)}
+  .kicker{font-family:'Fraunces',serif; font-style:italic; font-size:15px; color:var(--burg); letter-spacing:.02em}
+  h1{font-family:'Fraunces',serif; font-weight:600; font-size:clamp(38px,12vw,60px); line-height:.94; letter-spacing:-.01em; margin:6px 0 2px}
+  h1 .u{color:var(--burg)}
+  .dates{font-family:ui-monospace,'SF Mono',Menlo,monospace; font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin-top:10px}
+  .crew{margin-top:14px; font-size:15px; line-height:1.4}
+  .crew b{font-family:'Fraunces',serif; font-weight:500}
+  .roach{opacity:.75}
+
+  .base{
+    margin:16px 0 4px; padding:13px 15px; background:var(--card);
+    border:1px solid var(--line); border-left:4px solid var(--burg); border-radius:3px;
+    font-size:14.5px; line-height:1.55;
+  }
+  .base .lbl{font-family:ui-monospace,monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--burg); display:block; margin-bottom:3px}
+  .base a{color:var(--isar); text-decoration:none; border-bottom:1px solid var(--line)}
+
+  /* ---------- DAY TABS ---------- */
+  nav{position:sticky; top:0; z-index:20; background:var(--paper); border-bottom:1px solid var(--line);
+      display:flex; gap:0; margin:0 -18px; padding:0 8px}
+  nav button{
+    flex:1; background:none; border:none; cursor:pointer; padding:11px 4px 9px;
+    font-family:'Fraunces',serif; color:var(--muted); font-size:15px; line-height:1.05;
+    border-bottom:3px solid transparent;
+  }
+  nav button .dow{display:block; font-size:11px; font-family:ui-monospace,monospace; letter-spacing:.08em; text-transform:uppercase; margin-top:2px}
+  nav button.on{color:var(--burg); border-bottom-color:var(--burg)}
+
+  /* ---------- DAY HEAD ---------- */
+  .day{display:none; animation:fade .35s ease}
+  .day.on{display:block}
+  @keyframes fade{from{opacity:0; transform:translateY(6px)}to{opacity:1; transform:none}}
+
+  .dayhead{padding:22px 0 6px}
+  .dayhead .no{font-family:ui-monospace,monospace; font-size:12px; letter-spacing:.14em; color:var(--muted)}
+  .dayhead h2{font-family:'Fraunces',serif; font-weight:600; font-size:30px; line-height:1; margin:4px 0 0}
+  .weather{
+    display:inline-flex; align-items:center; gap:8px; margin-top:12px;
+    font-family:ui-monospace,monospace; font-size:12.5px; letter-spacing:.03em;
+    background:var(--card); border:1px solid var(--line); border-radius:20px; padding:6px 13px;
+  }
+  .weather .dot{width:8px;height:8px;border-radius:50%}
+  .intro{margin-top:12px; font-size:15.5px; color:#4a423d; font-style:italic; font-family:'Fraunces',serif}
+
+  /* ---------- TIMELINE ---------- */
+  .tl{margin-top:16px; padding-left:0}
+  .ev{position:relative; padding:0 0 4px 42px; margin-bottom:16px}
+  .ev::before{content:""; position:absolute; left:11px; top:22px; bottom:-16px; width:2px; background:var(--line)}
+  .ev:last-child::before{display:none}
+  .ev .dot{
+    position:absolute; left:0; top:3px; width:24px; height:24px; border-radius:50%;
+    border:2px solid var(--burg); background:var(--paper); cursor:pointer; z-index:2;
+    display:flex; align-items:center; justify-content:center; transition:.18s;
+  }
+  .ev .dot::after{content:""; width:9px;height:9px;border-radius:50%; background:transparent; transition:.18s}
+  .ev.done .dot{background:var(--burg)}
+  .ev.done .dot::after{background:var(--paper)}
+  .time{font-family:ui-monospace,monospace; font-size:12px; letter-spacing:.05em; color:var(--burg); font-weight:600}
+  .ev.opt .time{color:var(--gold)}
+  .ttl{font-family:'Fraunces',serif; font-weight:600; font-size:19px; line-height:1.15; margin:2px 0 4px}
+  .ev.done .ttl{color:var(--muted); text-decoration:line-through; text-decoration-color:var(--line)}
+  .desc{font-size:15px; color:#463e39; line-height:1.5}
+  .desc a{color:var(--isar); text-decoration:none; border-bottom:1px solid var(--line)}
+  .tags{margin-top:7px; display:flex; flex-wrap:wrap; gap:6px}
+  .tag{font-family:ui-monospace,monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase;
+       padding:3px 7px; border-radius:3px; border:1px solid}
+  .tag.must{color:#fff; background:var(--burg); border-color:var(--burg)}
+  .tag.opt{color:var(--gold); border-color:var(--gold); background:transparent}
+  .tag.water{color:var(--isar); border-color:var(--isar)}
+  .tag.map{color:var(--muted); border-color:var(--line)}
+  .tag.map a{color:var(--muted); text-decoration:none}
+  .sub{margin-top:8px; padding:9px 12px; background:var(--paper); border:1px dashed var(--line); border-radius:4px; font-size:13.5px; line-height:1.5; color:#5a514a}
+  .sub b{font-family:'Fraunces',serif; color:var(--ink); font-weight:500}
+
+  footer{margin:30px 0 10px; padding-top:16px; border-top:1px solid var(--line); font-size:13px; color:var(--muted); line-height:1.6}
+  .prog{position:fixed; bottom:0; left:0; right:0; height:4px; background:var(--line); z-index:30}
+  .prog span{display:block; height:100%; width:0; background:var(--burg); transition:.3s}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="kicker">A long weekend, hosted · summer '26</div>
+    <h1>Die&nbsp;Coucarachas<br>in&nbsp;<span class="u">München</span></h1>
+    <div class="dates">Sat 04 → Tue 07 July · Haidhausen basecamp</div>
+    <div class="crew">
+      <span class="roach">🪳</span> Host: <b>@coucaracha.djordje</b><br>
+      Crew: <b>Antonia · Markéta · Clara · Marcello · Mathias</b>
+    </div>
+    <div class="base">
+      <span class="lbl">Basecamp — Au-Haidhausen</span>
+      Flat: <b>Grillparzerstraße 42</b> — Au-Haidhausen, by Prinzregentenplatz, a few minutes from the Friedensengel and your office.<br>
+      Hotel: <a href="https://maps.app.goo.gl/bMGqw3RucCowYUkU6" target="_blank">Holiday Inn Leuchtenbergring</a> — <b>Leuchtenbergring 20</b>, a <b>10-minute walk</b> from the flat. No S-Bahn or tram needed.<br>
+      Everything — dinner, Friedensengel, Café Johannis, the jazz club — is on foot from here.
+    </div>
+  </header>
+
+  <nav id="nav">
+    <button data-d="0" class="on">Sat<span class="dow">04 Jul</span></button>
+    <button data-d="1">Sun<span class="dow">05 Jul</span></button>
+    <button data-d="2">Mon<span class="dow">06 Jul</span></button>
+    <button data-d="3">Tue<span class="dow">07 Jul</span></button>
+  </nav>
+
+  <div id="days"></div>
+
+  <footer>
+    Tap the ○ next to any stop to check it off — your ticks are saved on this device.<br>
+    Times are suggestions, not a lab protocol. Weather from the 2 Jul forecast; re-check the morning of.
+  </footer>
+</div>
+<div class="prog"><span id="bar"></span></div>
+
+<script>
+const DAYS = [
+  {
+    no:"Day 01 — Saturday",
+    title:"Welcome to the Viertel",
+    wx:{c:"#C99A2E", t:"☀ Sunny · 25°C · sunset 21:15"},
+    intro:"Arrival day. Ease in, then a full evening in Djordje's own neighbourhood — dinner, the best sunset perch in Haidhausen, and the drunken welcome.",
+    events:[
+      {time:"ON ARRIVAL", ttl:"Drop bags, regroup", desc:"Check in at the Holiday Inn or dump everything at the flat on Grillparzerstraße. Coffee, shower, reset the travel legs."},
+      {time:"~15:00", opt:true, ttl:"Water or weirdness — pick one", desc:"Two free, very-local options if you land early: <b>RAGAZZI Beach Open Air</b> at the Kulturstrand on the Isar (deckchairs, till 23:00), or the <b>Cucumber Party</b> at Viktualienmarkt's Saure Ecke (till 20:00). From your reels.", tags:[{k:"opt",v:"Optional"}], map:["Kulturstrand+M%C3%BCnchen"]},
+      {time:"~16:45", opt:true, ttl:"Oper für Alle", desc:"Live opera broadcast on the big screen at Max-Joseph-Platz, free, till 22:15. A culture hit on the square before dinner if the mood's right.", tags:[{k:"opt",v:"Optional"}], map:["Max-Joseph-Platz+M%C3%BCnchen"]},
+      {time:"18:30", ttl:"Dinner — Hofbräukeller am Wiener Platz", desc:"The <i>local</i> Hofbräu, not the tourist Hofbräuhaus. Beer garden if it holds. Schweinsbraten, Obatzda, a Maß each. Innere Wiener Str. 19.", tags:[{k:"must",v:"Trad dinner"}], mapid:["Hofbr%C3%A4ukeller","ChIJ29wi64B1nkcRR5UyRpxvUm4"]},
+      {time:"20:45", ttl:"Sunset at the Friedensengel", desc:"Golden-hour walk up to the Angel. The Isar terraces below it are the best cheap seats in the city. Bring a bottle. Sunset ~21:15.", tags:[{k:"must",v:"Your must-do"}], map:["Friedensengel+M%C3%BCnchen"]},
+      {time:"22:00 → late", ttl:"Café Johannis", desc:"The drunken welcome. Jukebox, €3.80 beer, as local as it gets, open till 4am. Johannisplatz 15 — closed Sun & Mon, so tonight's the night by default.", tags:[{k:"must",v:"Your must-do"}], mapid:["Cafe+Johannis","ChIJG61VZoB1nkcRzb94cpbT-P4"]}
+    ]
+  },
+  {
+    no:"Day 02 — Sunday",
+    title:"Wasser & Berge",
+    wx:{c:"#C99A2E", t:"☀ Sunny · 25°C · warmest day"},
+    intro:"The one clean-weather adventure day. Get out of the city to a lake — swim, walk, a Maß straight from the source. Warmest day of the trip, so use it.",
+    events:[
+      {time:"09:30", ttl:"Frühstück in the hood", desc:"Coffee and breakfast near Wiener Platz before the train south. Don't oversleep the sun."},
+      {time:"~10:30", ttl:"To the lake — Tegernsee", desc:"BRB regional train from Hauptbahnhof, ~1h, direct. Swim off the public meadows, easy lakeside walk, then the <b>Bräustüberl</b> for Tegernseer poured where it's brewed. Train-only, no car needed.", tags:[{k:"water",v:"Swim + walk"},{k:"must",v:"Your hike+water"}], map:["Tegernsee+Bahnhof"]},
+      {time:"", ttl:"", isSub:true, sub:"<b>Got a car?</b> Upgrade to <b>Walchensee / Kochelsee</b> — the turquoise \"Bavarian Caribbean,\" proper swim plus the Herzogstand or Jochberg hike (~1h drive).<br><br><b>Too hungover for the roadtrip?</b> Stay in town and go horizontal: a lazy float down the <b>English Garden</b> streams (Schwabinger Bach / Eisbach — drift, don't fight it), or a <b>picnic on the Olympiaberg</b> with the whole-city-and-Alps view. The <b>Flaucher</b> Isar beach is the third no-effort option — gravel banks, BBQ smoke, zero travel."},
+      {time:"~19:30", ttl:"Back in town — easy dinner", desc:"Dinner around Gärtnerplatz or back in Haidhausen. Nothing fancy; legs are tired."},
+      {time:"20:30", opt:true, ttl:"Live music night", desc:"Primary: <a href='https://maps.app.goo.gl/Z4vVMXBWJtgwtDqn6' target='_blank'>your live-music spot</a>. Alternative — the <b>Jazzclub Unterfahrt</b> (Einsteinstr. 42): a €5 Sunday jam with serious local players, and a 10-min walk from the Holiday Inn. Either way, low-key, no big night required.", tags:[{k:"opt",v:"Live music"}], mapid:["Jazzclub+Unterfahrt","ChIJA4WPa391nkcRom3xbB-Zq9s"]},
+      {time:"", ttl:"", isSub:true, sub:"<b>Olympiaberg alt:</b> if you took the Flaucher and stayed in town, climb the Olympiaberg for the sunset — whole-city view with the Alps behind on a clear evening like this one."}
+    ]
+  },
+  {
+    no:"Day 03 — Monday",
+    title:"Djordje works — you take the city",
+    wx:{c:"#5B7C9E", t:"🌧 Patchy rain · 17°C · indoor-friendly"},
+    intro:"Rain and a TUM workday line up nicely: the crew does the city and the museums while Djordje works, everyone converges for a work-lunch, then a proper send-off night.",
+    events:[
+      {time:"09:30", ttl:"City-centre culture, rain-proof", desc:"Marienplatz Glockenspiel at 11:00 (touristy but 5 minutes and it's on the way), then the covered stalls of Viktualienmarkt.", tags:[{k:"map",v:"Marienplatz",m:"Marienplatz+M%C3%BCnchen"}]},
+      {time:"10:30", ttl:"Dallmayr — Mathias's mission", desc:"The cathedral of delicatessen. Coffee, pralines, the full sensory overload. Dienerstr. 14. Closed Sundays, which is exactly why it's today.", tags:[{k:"must",v:"For Mathias"}], mapid:["Dallmayr","ChIJdRuwa4t1nkcRP4FWNEs1efI"]},
+      {time:"12:00", ttl:"Work-lunch + the office", desc:"Meet Djordje on his lunch break by <b>Ismaningerstraße 69</b>. Quick look at where SCALE-S happens; <b>Mathias & Antonia say hi to the colleagues</b>. Keep it tight — he's back on the clock at one.", tags:[{k:"must",v:"Office + lunch"}], map:["Ismaningerstra%C3%9Fe+69+M%C3%BCnchen"]},
+      {time:"14:00", ttl:"Kunstareal + cheap drinks", desc:"Rain-perfect: pick a Pinakothek or the Museum Brandhorst (the Twombly rooms). Then cheap local drinks, your spots — <a href='https://maps.app.goo.gl/9gTM1d8rE4RZTazB6' target='_blank'>Kosmos / Utter Null</a>, or <a href='https://maps.app.goo.gl/pAmG96K79ZrLHhQx6' target='_blank'>the alternative</a>. Cash, student prices, none of the touristy markup."},
+      {time:"", ttl:"", isSub:true, sub:"<b>Dry-out alt:</b> the <b>Deutsches Museum</b> on the Isar island — a whole rainy afternoon of nerd heaven, and it walks you back toward Haidhausen. Also home turf for a room full of researchers."},
+      {time:"19:30", ttl:"Send-off night — Glockenbach", desc:"Last full evening. Cocktails in the Gärtnerplatz quarter: <b>Zephyr Bar</b> (Baaderstr. 68, tiny, superb) and <b>Primo Bar</b> (Reichenbachstr. 33, 4.9, cosy) — both open tonight — then spill onto Gärtnerplatz with the summer crowd.", tags:[{k:"opt",v:"Cool-hood night"}], mapid:["Zephyr+Bar","ChIJ65KTt2bfnUcRHCqOQfvkOFM"]},
+      {time:"", ttl:"", isSub:true, sub:"<b>Reality check, Djordje:</b> Monday is a real TUM working day and Tuesday isn't a holiday. It's the crew's last night, so send them off properly — but if you want to function Tuesday, this is the one to pace yourself on. Saturday was the blowout; let Monday be civilised."}
+    ]
+  },
+  {
+    no:"Day 04 — Tuesday",
+    title:"Auf Wiedersehen",
+    wx:{c:"#8A93A0", t:"⛅ Partly cloudy · 20°C · easy"},
+    intro:"Departure day. One last proper Munich-summer image, then hugs and trains.",
+    events:[
+      {time:"09:30", ttl:"Slow farewell breakfast", desc:"Café around Prinzregentenplatz / Wiener Platz. No agenda, just good coffee and the last of the crew energy."},
+      {time:"11:00", ttl:"English Garden send-off", desc:"If the morning's bright: the Eisbach surfers at the Haus der Kunst wave, up past the Monopteros, feet in the stream. The definitive Munich summer picture — and it's on the way to nothing touristy.", tags:[{k:"map",v:"Eisbachwelle",m:"Eisbachwelle+M%C3%BCnchen"}]},
+      {time:"", ttl:"", isSub:true, sub:"<b>Missed Olympiapark?</b> Quick pre-train detour to the Olympiaberg for the view, if the sky cooperates and there's time."},
+      {time:"~13:00", ttl:"Depart", desc:"Bags from the Holiday Inn, hugs on Grillparzerstraße, coucarachas scatter. Bis zum nächsten Mal."}
+    ]
+  }
+];
+
+// ---- render ----
+const host = document.getElementById('days');
+let total=0;
+DAYS.forEach((d,di)=>{
+  const day=document.createElement('div');
+  day.className='day'+(di===0?' on':'');
+  day.dataset.d=di;
+  let h=`<div class="dayhead"><div class="no">${d.no}</div><h2>${d.title}</h2>
+    <div class="weather"><span class="dot" style="background:${d.wx.c}"></span>${d.wx.t}</div>
+    <div class="intro">${d.intro}</div></div><div class="tl">`;
+  d.events.forEach((e,ei)=>{
+    if(e.isSub){ h+=`<div class="ev" style="padding-left:42px"><div class="sub">${e.sub}</div></div>`; return; }
+    total++;
+    const id=`c-${di}-${ei}`;
+    let tags='';
+    (e.tags||[]).forEach(t=>{
+      if(t.k==='map'){
+        const q=t.mid?`https://www.google.com/maps/search/?api=1&query=${t.mid[0]}&query_place_id=${t.mid[1]}`:`https://www.google.com/maps/search/?api=1&query=${t.m}`;
+        tags+=`<span class="tag map"><a href="${q}" target="_blank">📍 ${t.v}</a></span>`;
+      } else tags+=`<span class="tag ${t.k}">${t.v}</span>`;
+    });
+    // primary map link
+    let mapTag='';
+    if(e.mapid) mapTag=`<span class="tag map"><a href="https://www.google.com/maps/search/?api=1&query=${e.mapid[0]}&query_place_id=${e.mapid[1]}" target="_blank">📍 Maps</a></span>`;
+    else if(e.map) mapTag=`<span class="tag map"><a href="https://www.google.com/maps/search/?api=1&query=${e.map[0]}" target="_blank">📍 Maps</a></span>`;
+    h+=`<div class="ev${e.opt?' opt':''}" id="${id}">
+      <div class="dot" data-id="${id}"></div>
+      <div class="time">${e.time}</div>
+      <div class="ttl">${e.ttl}</div>
+      <div class="desc">${e.desc}</div>
+      <div class="tags">${tags}${mapTag}</div>
+    </div>`;
+  });
+  h+='</div>';
+  day.innerHTML=h;
+  host.appendChild(day);
+});
+
+// ---- tabs ----
+document.querySelectorAll('#nav button').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('#nav button').forEach(x=>x.classList.remove('on'));
+    document.querySelectorAll('.day').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    document.querySelector(`.day[data-d="${b.dataset.d}"]`).classList.add('on');
+    window.scrollTo({top:0,behavior:'smooth'});
+  };
+});
+
+// ---- check-off + persistence ----
+const KEY='coucarachas-muc';
+let state={};
+async function load(){
+  try{ const r=await window.storage.get(KEY); if(r&&r.value) state=JSON.parse(r.value); }catch(e){ state={}; }
+  applyState();
+}
+async function save(){
+  try{ await window.storage.set(KEY, JSON.stringify(state)); }catch(e){}
+}
+function applyState(){
+  let done=0;
+  document.querySelectorAll('.ev .dot').forEach(dot=>{
+    const ev=dot.closest('.ev');
+    if(state[dot.dataset.id]){ ev.classList.add('done'); done++; } else ev.classList.remove('done');
+  });
+  document.getElementById('bar').style.width=(total?Math.round(done/total*100):0)+'%';
+}
+document.addEventListener('click',e=>{
+  const dot=e.target.closest('.ev .dot'); if(!dot)return;
+  const id=dot.dataset.id; state[id]=!state[id]; applyState(); save();
+});
+load();
+</script>
+</body>
+</html>
